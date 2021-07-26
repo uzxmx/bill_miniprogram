@@ -1,0 +1,21 @@
+<view class="container">
+  <view class="container-no-workspace" wx:if="{{ firstWorkspace && !action }}">
+    <view class="text-1">
+      <text>您还没有一个工作空间</text>
+    </view>
+    <view class="text-2">
+      <text>请先创建或加入一个工作空间吧</text>
+    </view>
+
+    <view class="container-buttons">
+      <button class="btn-primary" bindtap="onCreateTap">创建工作空间</button>
+      <button class="btn-primary" bindtap="onJoinTap">加入工作空间</button>
+    </view>
+  </view>
+
+  <view class="container-create-or-join" wx:if="{{ action }}">
+    <input placeholder="工作空间名称" bindinput="onInput" />
+    <button class="btn-primary" bindtap="onCreateOrJoinTap">{{ action === 'create' ? '创建工作空间' : '加入工作空间' }}</button>
+    <view class="container-switch-action"><text bindtap="onSwitchActionTap">{{ action === 'create' ? '加入工作空间' : '创建工作空间' }}</text></view>
+  </view>
+</view>

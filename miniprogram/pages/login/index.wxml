@@ -1,0 +1,8 @@
+<view>
+  <view class="logo-wrapper">
+    <image class="logo" src="../../assets/images/logo.png"></image>
+    <text>记账管理宝</text>
+  </view>
+
+  <button class="btn-primary btn-login" bindtap="login">微信授权登录</button>
+</view>

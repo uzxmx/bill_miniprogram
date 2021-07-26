@@ -1,0 +1,30 @@
+.container {
+  padding-top: 200px;
+}
+
+.container-no-workspace {
+  text-align: center;
+}
+
+.text-2 {
+  margin-top: 10px;
+}
+
+.container-buttons {
+  margin-top: 20px;
+  display: flex;
+}
+
+.container-create-or-join {
+  padding: 0 10px;
+}
+
+.container-create-or-join button {
+  margin-top: 30px;
+}
+
+.container-switch-action {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 13px;
+}
