@@ -37,7 +37,11 @@ Page({
       get('/workspaces').then(res => {
         wx.hideLoading()
         if (res.data.length === 0) {
-          wx.redirectTo({ url: '/pages/workspace/guide' })
+          get('/workspace_requests?as=applicant').then(res => {
+            if (res.data.length === 0) {
+              wx.redirectTo({ url: '/pages/workspace/guide' })
+            }
+          })
         }
       }).catch(() => {
         wx.hideLoading()
@@ -50,8 +54,10 @@ Page({
   },
 
   onShow() {
-    this.selectComponent("#cargo-list").onShow()
-    this.selectComponent("#bill-list").onShow()
+    if (UserManager.isAuthenticated()) {
+      this.selectComponent("#cargo-list").onShow()
+      this.selectComponent("#bill-list").onShow()
+    }
   },
 
   onTabChange(e: any) {

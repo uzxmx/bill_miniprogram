@@ -15,6 +15,12 @@ class UserManager {
     return wx.getStorageSync('refresh_token')
   }
 
+  clearTokens() {
+    wx.setStorageSync('user_id', null)
+    wx.setStorageSync('access_token', null)
+    wx.setStorageSync('refreshToken', null)
+  }
+
   setTokens(userId: string, accessToken: string, refreshToken: string) {
     wx.setStorageSync('user_id', userId)
     wx.setStorageSync('access_token', accessToken)

@@ -4,6 +4,7 @@ import deepClone from '../../utils/deepClone'
 
 Page({
   data: {
+    ready: false,
     category: null,
     cargoId: '',
     parent: null,
@@ -23,7 +24,10 @@ Page({
 
   onLoad(options) {
     if (options.id) {
+      wx.setNavigationBarTitle({ title: '修改货物分类' })
+      wx.showLoading({ title: '加载中' })
       get(`/cargo_categories/${options.id}`).then(res => {
+        wx.hideLoading()
         const category = res.data
         const { name, price, count, note, photo } = category
         const formData = { name, price, count, note }
@@ -35,15 +39,16 @@ Page({
         }
 
         // @ts-ignore
-        this.setData({ category, formData, photo, files })
+        this.setData({ category, formData, photo, files, ready: true })
         this.loadTags(category.parent_id)
+      }).catch(() => {
+        wx.hideLoading()
       })
-      return
+    } else {
+      wx.setNavigationBarTitle({ title: '添加货物分类' })
+      this.loadTags(options.parentId)
+      this.setData({ cargoId: options.cargoId, ready: true })
     }
-
-    this.loadTags(options.parentId)
-
-    this.setData({ cargoId: options.cargoId })
   },
 
   loadTags(parentId: any) {
@@ -117,14 +122,6 @@ Page({
     })
   },
 
-  uploadFile() {
-    console.log(this.data.files)
-    wx.showToast({
-      title: 'uploadFile',
-      icon: 'none'
-    })
-  },
-
   onSelectFile(e: any) {
     UploadManager.upload(e.detail.tempFilePaths[0]).then(res => {
       let files = [{ url: UploadManager.getUrl(res.data.key), loading: false }]
@@ -147,7 +144,7 @@ Page({
       }
     }
 
-    if (!formData.price) {
+    if (!this.data.parent && !formData.price) {
       this.showError('请输入价格')
       return
     }

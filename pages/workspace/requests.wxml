@@ -8,6 +8,8 @@
         状态：<text class="status">{{ item.statusDesc }}</text>
       </view>
     </view>
+
+    <button class="btn-primary btn-request" bindtap="joinWorkspace">申请加入工作空间</button>
   </block>
 
   <block wx:else>

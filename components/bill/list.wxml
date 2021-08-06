@@ -16,7 +16,7 @@
           </view>
           <view class="row-2">
             <view>总金额：{{ item.amount }}</view>
-            <view wx:if="{{ item.bill_type === 'income' }}">扣除提成后总金额：{{ item.amount }}</view>
+            <view wx:if="{{ item.bill_type === 'income' }}">扣除提成后总金额：{{ item.actual_amount }}</view>
             <view>件数：{{ item.count }}</view>
             <view wx:if="{{ item.tag }}">标签：{{ item.tag }}</view>
           </view>

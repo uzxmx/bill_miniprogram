@@ -46,6 +46,10 @@ export function request(options: any): Promise<any> {
       if (res.statusCode >= 200 && res.statusCode < 400 && !res.data.err) {
         resolve(res)
       } else {
+        if (res.statusCode === 401) {
+          UserManager.clearTokens()
+          wx.redirectTo({ url: '/pages/login/index' })
+        }
         reject(res)
       }
     }

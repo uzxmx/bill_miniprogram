@@ -9,7 +9,8 @@ Page({
     name: '',
     createOrJoinBtnDisabled: true,
   },
-  onLoad() {
+  onLoad(options) {
+    this.setData({ action: options.action })
   },
 
   onInput(e: any) {
@@ -51,9 +52,7 @@ Page({
         title: message,
         icon: 'none',
         complete: () => {
-          if (this.data.action === 'create') {
-            wx.redirectTo({ url: '/pages/index/index' })
-          }
+          wx.redirectTo({ url: '/pages/index/index' })
         }
       })
     }).catch(err => {

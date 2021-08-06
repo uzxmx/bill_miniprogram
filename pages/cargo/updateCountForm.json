@@ -1,5 +1,4 @@
 {
-  "navigationBarTitleText": "出库/入库",
   "usingComponents": {
     "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
     "mp-cells": "/miniprogram_npm/weui-miniprogram/cells/cells",

@@ -7,7 +7,13 @@ Page({
   },
 
   onLoad(options) {
-    this.loadData(options.as)
+    let as = options.as
+    wx.setNavigationBarTitle({ title: as === 'applicant' ? '我的申请' : '我的消息' })
+    this.setData({ as })
+  },
+
+  onShow() {
+    this.loadData(this.data.as)
   },
 
   loadData(as: any) {
@@ -30,7 +36,7 @@ Page({
         e.statusDesc = statusDesc
       })
 
-      this.setData({ as, requests: res.data })
+      this.setData({ requests: res.data })
     }).catch(() => {
       wx.hideLoading()
     })
@@ -50,5 +56,9 @@ Page({
         icon: 'none'
       })
     })
+  },
+
+  joinWorkspace() {
+    wx.navigateTo({ url: '/pages/workspace/guide?action=join' })
   }
 })

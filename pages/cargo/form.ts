@@ -1,11 +1,31 @@
-import { post } from '../../request/index'
+import { get, post, patch } from '../../request/index'
 
 Page({
   data: {
+    ready: false,
+    cargo: null,
     formData: {
       name: '',
       note: '',
     },
+  },
+
+  onLoad(options) {
+    if (options.id) {
+      wx.setNavigationBarTitle({ title: '修改货物' })
+      wx.showLoading({ title: '加载中' })
+      get(`/cargoes/${options.id}`).then(res => {
+        wx.hideLoading()
+        const cargo = res.data
+        const formData = cargo
+        this.setData({ cargo, formData, ready: true })
+      }).catch(() => {
+        wx.hideLoading()
+      })
+    } else {
+      wx.setNavigationBarTitle({ title: '添加货物' })
+      this.setData({ ready: true })
+    }
   },
 
   formInputChange(e: any) {
@@ -29,9 +49,20 @@ Page({
     }
 
     wx.showLoading({ title: '提交中' })
-    post('/cargoes', formData).then(res => {
+    let promise
+    if (this.data.cargo) {
+      // @ts-ignore
+      promise = patch(`/cargoes/${this.data.cargo.id}`, formData)
+    } else {
+      promise = post('/cargoes', formData)
+    }
+    promise.then(res => {
       wx.hideLoading()
-      wx.redirectTo({ url: `/pages/cargo/details?id=${res.data.id}` })
+      if (this.data.cargo) {
+        wx.navigateBack()
+      } else {
+        wx.redirectTo({ url: `/pages/cargo/details?id=${res.data.id}` })
+      }
     }).catch(() => {
       wx.hideLoading()
       wx.showToast({

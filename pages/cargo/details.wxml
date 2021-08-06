@@ -3,6 +3,11 @@
   <view>名称: {{ cargo.name }}</view>
   <view style="margin-top: 5px;" wx:if="{{ cargo.note }}">备注：{{ cargo.note }}</view>
 
+  <view class="buttons">
+    <button class="btn-primary btn-update" bindtap="updateCargo">修改</button>
+    <button class="btn-danger btn-delete" bindtap="deleteCargo">删除</button>
+  </view>
+
   <view class="categories" style="margin-top: 30px;">
     <view class="categories-header">
       <view>货物分类</view>
@@ -24,24 +29,24 @@
 
         <view class="category-buttons">
           <view bindtap="deleteCategory" data-id="{{ category.id }}"><image class="icon" src="../../assets/images/icon-delete.png" /><text>删除</text></view>
-          <view bindtap="updateCount" data-id="{{ category.id }}" data-action="incr"><image class="icon" src="../../assets/images/icon-internal.png" /><text>入库</text></view>
-          <view bindtap="updateCount" data-id="{{ category.id }}" data-action="decr"><image class="icon" src="../../assets/images/icon-external.png" /><text>出库</text></view>
+          <view bindtap="updateCount" wx:if="{{ !category.children || category.children.length === 0 }}" data-id="{{ category.id }}" data-action="incr"><image class="icon" src="../../assets/images/icon-internal.png" /><text>入库</text></view>
+          <view bindtap="updateCount" wx:if="{{ !category.children || category.children.length === 0 }}" data-id="{{ category.id }}" data-action="decr"><image class="icon" src="../../assets/images/icon-external.png" /><text>出库</text></view>
           <view bindtap="addSubCategory" data-id="{{ category.id }}"><image class="icon" src="../../assets/images/icon-add.png" /><text>添加子分类</text></view>
           <view bindtap="updateCategory" data-id="{{ category.id }}" data-action="decr"><image class="icon" src="../../assets/images/icon-edit.png" /><text>修改</text></view>
         </view>
 
         <view wx:if="{{ category.children && category.children.length > 0 }}">子分类</view>
-        <view wx:for="{{ category.children }}" wx:key="id" wx:for-item="category" class="subcategory">
+        <view wx:for="{{ category.children }}" wx:key="id" wx:for-item="subcategory" class="subcategory">
           <view class="category-header">
-            <view>{{ category.name }}</view>
-            <view class="count"><text>{{ category.count || 0 }}</text>件</view>
+            <view>{{ subcategory.name }}</view>
+            <view class="count"><text>{{ subcategory.count || 0 }}</text>件</view>
           </view>
 
           <view class="category-buttons">
-            <view bindtap="deleteCategory" data-id="{{ category.id }}"><image class="icon" src="../../assets/images/icon-delete.png" /><text>删除</text></view>
-            <view bindtap="updateCount" data-id="{{ category.id }}" data-action="incr"><image class="icon" src="../../assets/images/icon-internal.png" /><text>入库</text></view>
-            <view bindtap="updateCount" data-id="{{ category.id }}" data-action="decr"><image class="icon" src="../../assets/images/icon-external.png" /><text>出库</text></view>
-            <view bindtap="updateCategory" data-id="{{ category.id }}" data-action="decr"><image class="icon" src="../../assets/images/icon-edit.png" /><text>修改</text></view>
+            <view bindtap="deleteCategory" data-id="{{ subcategory.id }}"><image class="icon" src="../../assets/images/icon-delete.png" /><text>删除</text></view>
+            <view bindtap="updateCount" data-id="{{ subcategory.id }}" data-parent-id="{{ category.id }}" data-action="incr"><image class="icon" src="../../assets/images/icon-internal.png" /><text>入库</text></view>
+            <view bindtap="updateCount" data-id="{{ subcategory.id }}" data-parent-id="{{ category.id }}" data-action="decr"><image class="icon" src="../../assets/images/icon-external.png" /><text>出库</text></view>
+            <view bindtap="updateCategory" data-id="{{ subcategory.id }}" data-action="decr"><image class="icon" src="../../assets/images/icon-edit.png" /><text>修改</text></view>
           </view>
         </view>
       </view>

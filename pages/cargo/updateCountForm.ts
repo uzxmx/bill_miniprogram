@@ -21,10 +21,12 @@ Page({
     const year = date.getFullYear()
     const month = date.getMonth() + 1
     const day = date.getDate()
+    const title = options.action === 'incr' ? '入库' : '出库'
+    wx.setNavigationBarTitle({ title })
     this.setData({
       categoryId: options.categoryId,
       action: options.action,
-      title: options.action === 'incr' ? '入库' : '出库',
+      title,
       totalCount: Number.parseInt(options.totalCount!),
       price: Number.parseFloat(options.price!),
     })
@@ -65,6 +67,11 @@ Page({
     let formData = this.data.formData
     if (!formData.delta) {
       this.showError(`请输入${this.data.title}数量`)
+      return
+    }
+
+    if (this.data.action === 'decr' && parseInt(formData.delta) > this.data.totalCount) {
+      this.showError(`最大数量为${this.data.totalCount}`)
       return
     }
 

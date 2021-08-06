@@ -1,5 +1,4 @@
 {
-  "navigationBarTitleText": "添加货物分类",
   "usingComponents": {
     "mp-toptips": "/miniprogram_npm/weui-miniprogram/toptips/toptips",
     "mp-cells": "/miniprogram_npm/weui-miniprogram/cells/cells",

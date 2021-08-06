@@ -2,6 +2,11 @@
   padding: 10px;
 }
 
+.buttons {
+  margin-top: 20px;
+  display: flex;
+}
+
 .categories-header {
   padding: 5px 0;
   display: flex;

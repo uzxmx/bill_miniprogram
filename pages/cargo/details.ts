@@ -32,16 +32,52 @@ Page({
     })
   },
 
+  updateCargo() {
+    wx.navigateTo({ url: `/pages/cargo/form?id=${this.data.id}` })
+  },
+
+  deleteCargo() {
+    wx.showModal({
+      content: '是否确认删除该货物?',
+      success: res => {
+        if (res.confirm) {
+          wx.showLoading({ title: '删除中' })
+          // @ts-ignore
+          del(`/cargoes/${this.data.cargo.id}`).then(() => {
+            wx.hideLoading()
+            wx.navigateBack()
+          }).catch(() => {
+            wx.hideLoading()
+            wx.showToast({
+              title: '请求失败，请重新尝试',
+              icon: 'none'
+            })
+          })
+        }
+      }
+    })
+  },
+
   updateCategory(e: any) {
     const { id } = e.currentTarget.dataset
     wx.navigateTo({ url: `/pages/cargo/categoryForm?id=${id}` })
   },
 
   updateCount(e: any) {
-    const { id, action } = e.currentTarget.dataset
+    let { id, action, parentId } = e.currentTarget.dataset
+    if (!parentId) {
+      parentId = id
+    }
     // @ts-ignore
-    let category = this.data.cargo.categories.find((c: any) => c.id === id)
-    wx.navigateTo({ url: `/pages/cargo/updateCountForm?categoryId=${id}&action=${action}&totalCount=${category.count}&price=${category.price}` })
+    let category = this.data.cargo.categories.find((c: any) => c.id === parentId)
+    let price = category.price
+    let count
+    if (parentId !== id) {
+      count = category.children.find((c: any) => c.id === id).count
+    } else {
+      count = category.count
+    }
+    wx.navigateTo({ url: `/pages/cargo/updateCountForm?categoryId=${id}&action=${action}&totalCount=${count}&price=${price}` })
   },
 
   addSubCategory(e: any) {

@@ -1,4 +1,4 @@
-<view>
+<view wx:if="{{ ready }}">
   <mp-toptips msg="{{ error }}" type="error" show="{{ error }}"></mp-toptips>
 
   <mp-form models="{{ formData }}">
@@ -21,11 +21,11 @@
     </mp-cell>
 
     <mp-cells title="其他信息" style="margin-top: 50px;">
-      <mp-cell>
+      <mp-cell wx:if="{{ !parent }}">
         <mp-uploader bindfail="onUploadError" upload="uplaodFile" bindselect="onSelectFile" files="{{ files }}" max-count="1" title="图片"></mp-uploader>
       </mp-cell>
 
-      <mp-cell show-error title="价格" ext-class="">
+      <mp-cell show-error title="价格" ext-class="" wx:if="{{ !parent }}">
         <input bindinput="formInputChange" data-field="price" class="weui-input" type="digit" placeholder="请输入价格" value="{{ formData.price }}" />
       </mp-cell>
 
