@@ -12,8 +12,14 @@ Page({
 
   onLoad(options) {
     if (options.id) {
+      wx.showLoading({ title: '加载中' })
       get(`/tags/${options.id}`).then(res => {
-        this.setData({ tag: res.data })
+        wx.hideLoading()
+        const tagValues = JSON.parse(res.data.value).map((e: any, i: any) => { return { id: i, value: e } })
+        const formData = { name: res.data.name }
+        this.setData({ tag: res.data, tagValues, formData })
+      }).catch(() => {
+        wx.hideLoading()
       })
     }
   },
@@ -27,8 +33,21 @@ Page({
   deleteTagValue(e: any) {
     const { id } = e.currentTarget.dataset
     const tagValues = this.data.tagValues
-    tagValues.splice(id, 1)
-    this.setData({ tagValues })
+
+    if (tagValues[id].value) {
+      wx.showModal({
+        content: '是否确认删除该标签?',
+        success: res => {
+          if (res.confirm) {
+            tagValues.splice(id, 1)
+            this.setData({ tagValues })
+          }
+        }
+      })
+    } else {
+      tagValues.splice(id, 1)
+      this.setData({ tagValues })
+    }
   },
 
   onTagValueChange(e: any) {

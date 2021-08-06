@@ -5,17 +5,21 @@ Page({
     tags: []
   },
 
-  onLoad() {
+  onShow() {
     this.loadData()
   },
 
   loadData() {
+    wx.showLoading({ title: '加载中' })
     get('/tags?tag_type=cargo_category').then(res => {
+      wx.hideLoading()
       res.data.forEach((e: any) => {
         e.value = JSON.parse(e.value)
         e.valueStr = e.value.join(' / ')
       })
       this.setData({ tags: res.data })
+    }).catch(() => {
+      wx.hideLoading()
     })
   },
 
