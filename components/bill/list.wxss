@@ -1,0 +1,103 @@
+.header {
+  padding: 10px 0;
+  background: white;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid #eee;
+}
+
+.searchbar {
+  flex: 1;
+}
+
+.header image {
+  width: 30px;
+  height: 30px;
+  margin: 0 10px;
+}
+
+.bills {
+  margin-top: 55px;
+}
+
+.bill {
+  border-bottom: 1px solid #eee;
+}
+
+.bill-wrapper {
+  padding: 10px;
+  display: flex;
+}
+
+.income, .spend {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+}
+
+.income {
+  background: red;
+}
+
+.spend {
+  background: green;
+}
+
+.col-2 {
+  margin-left: 10px;
+  flex: 1;
+}
+
+.col-2 .row-1 {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.col-2 .row-1 .name {
+  flex: 1;
+  font-size: 16px;
+}
+
+.col-2 .row-1 .billed-at {
+  color: #aaa;
+  font-size: 13px;
+
+}
+
+.category {
+  display: flex;
+  align-items: center;
+}
+
+.category .name {
+  flex: 1;
+}
+
+.category .price {
+  flex: 1;
+  color: orange;
+}
+
+.category .price text {
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+.category .count {
+  flex: 1;
+  text-align: right;
+}
+
+.category .count text {
+  margin-right: 5px;
+  color: #07c160;
+  font-size: 20px;
+}

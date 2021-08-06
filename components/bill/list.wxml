@@ -1,0 +1,26 @@
+<view>
+  <view class="header">
+    <!-- <mp-searchbar class="searchbar" /> -->
+    <image bindtap="addBill" src="../../assets/images/icon-plus.png" />
+  </view>
+  <view class="bills">
+    <view wx:for="{{ bills }}" wx:for-item="item" wx:key="id" class="bill">
+      <navigator class="bill-wrapper" url="/pages/bill/details?id={{ item.id }}">
+        <view class="col-1">
+          <view class="{{ item.bill_type }}">{{ item.bill_type === 'income' ? '收' : '支' }}</view>
+        </view>
+        <view class="col-2">
+          <view class="row-1">
+            <view class="name">{{ item.name }}</view>
+            <view class="billed-at">{{ item.billed_at }}</view>
+          </view>
+          <view class="row-2">
+            <view>总金额：{{ item.amount }}</view>
+            <view wx:if="{{ item.bill_type === 'income' }}">扣除提成后总金额：{{ item.amount }}</view>
+            <view>件数：{{ item.count }}</view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </view>
+</view>

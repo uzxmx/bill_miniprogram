@@ -1,3 +1,0 @@
-<view>
-  <mp-tabbar class="tabbar" list="{{list}}" bindchange="tabChange"></mp-tabbar>
-</view>

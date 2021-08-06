@@ -1,0 +1,20 @@
+<view>
+  <view class="header">
+    <mp-searchbar class="searchbar" />
+    <image bindtap="addCargo" src="../../assets/images/icon-plus.png" />
+  </view>
+  <view class="cargoes">
+    <view wx:for="{{ cargoes }}" wx:for-item="item" wx:key="id" class="cargo">
+      <navigator class="cargo-wrapper" url="/pages/cargo/details?id={{ item.id }}">
+        <view>
+          <text>{{ item.name }}</text>
+        </view>
+        <view wx:for="{{ item.categories }}" wx:key="id" wx:for-item="category" class="category">
+          <view class="name">{{ category.name || '默认分类' }}</view>
+          <view class="price">¥<text>{{ category.price }}</text></view>
+          <view class="count"><text>{{ category.count }}</text>件</view>
+        </view>
+      </navigator>
+    </view>
+  </view>
+</view>

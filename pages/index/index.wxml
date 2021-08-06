@@ -1,0 +1,14 @@
+<view>
+  <view class="main-content" wx:if="{{ authenticated }}">
+    <view hidden="{{ currentTab !== 0 }}">
+      <cargo-list id="cargo-list" />
+    </view>
+    <view hidden="{{ currentTab !== 1 }}">
+      <bill-list id="bill-list" />
+    </view>
+    <view hidden="{{ currentTab !== 2 }}">
+      <my-profile />
+    </view>
+  </view>
+  <mp-tabbar class="tabbar" list="{{ tabs }}" bindchange="onTabChange" current="{{ currentTab }}"></mp-tabbar>
+</view>

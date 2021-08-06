@@ -1,0 +1,23 @@
+.tag-value-header {
+  padding: 0 15px;
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.tag-value-header text {
+  flex: 1;
+}
+
+.icon-add, .icon-delete {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-submit {
+  margin-top: 30px;
+}
+
+.btn-delete {
+  margin-top: 10px;
+}

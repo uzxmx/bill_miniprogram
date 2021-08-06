@@ -1,0 +1,25 @@
+<view>
+  <mp-toptips msg="{{ error }}" type="error" show="{{ error }}"></mp-toptips>
+
+  <mp-form models="{{ formData }}">
+    <mp-cells>
+      <mp-cell show-error title="标签名称" ext-class="">
+        <input bindinput="formInputChange" data-field="name" class="weui-input" placeholder="请输入名称" value="{{ formData.name }}" />
+      </mp-cell>
+    </mp-cells>
+
+    <view class="tag-value-header">
+      <text>标签值列表</text>
+      <image class="icon-add" src="../../assets/images/icon-add.png" bindtap="addTagValue" />
+    </view>
+    <mp-cells>
+      <mp-cell show-error ext-class="" wx:for="{{ tagValues }}" wx:key="id">
+        <input bindinput="onTagValueChange" data-id="{{ item.id }}" class="weui-input" placeholder="请输入标签值" value="{{ item.value }}" />
+        <image slot="footer" class="icon-delete" src="../../assets/images/icon-delete.png" data-id="{{ item.id }}" bindtap="deleteTagValue" />
+      </mp-cell>
+    </mp-cells>
+  </mp-form>
+
+  <button class="btn-primary btn-submit" bindtap="submit">保存</button>
+  <button class="btn-danger btn-delete" bindtap="deleteTag" wx:if="{{ tag }}">删除</button>
+</view>

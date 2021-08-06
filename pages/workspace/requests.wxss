@@ -1,0 +1,40 @@
+.item {
+  padding: 15px;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.item .apply-at {
+  margin-right: 5px;
+  color: orange;
+}
+
+.item .workspace-name {
+  margin-left: 10px;
+  color: #07c160;
+}
+
+.item .status-row {
+  margin-top: 10px;
+}
+
+.item .status {
+  color: red;
+}
+
+.item .user-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.item .avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  margin-right: 10px;
+}
+
+.item .operations {
+  margin-top: 10px;
+  display: flex;
+}

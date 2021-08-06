@@ -1,0 +1,8 @@
+<view>
+  <view wx:for="{{ tags }}" wx:key="id" class="item" data-id="{{ item.id }}" bindtap="onItemTap">
+    <view class="name">{{ item.name }}</view>
+    <view class="value">{{ item.valueStr }}</view>
+  </view>
+
+  <button class="btn-primary btn-add-tag" bindtap="addTag">添加标签</button>
+</view>

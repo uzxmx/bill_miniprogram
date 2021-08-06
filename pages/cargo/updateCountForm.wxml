@@ -1,0 +1,29 @@
+<view>
+  <mp-toptips msg="{{ error }}" type="error" show="{{ error }}"></mp-toptips>
+
+  <mp-form models="{{ formData }}">
+    <mp-cells>
+      <mp-cell show-error title="{{ title }}数量" ext-class="">
+        <input bindinput="formInputChange" data-field="delta" class="weui-input" placeholder="请输入{{ title }}数量" type="number" />
+      </mp-cell>
+      <mp-cell show-error title="自动记账" ext-class="">
+        <switch checked="{{ createBill }}" bindchange="onCreateBillChanged" />
+      </mp-cell>
+      <block wx:if="{{ createBill }}">
+        <mp-cell show-error title="{{ action === 'decr' ? '收入' : '支出' }}" ext-class="">
+          <input bindinput="formInputChange" data-field="bill.amount" class="weui-input" type="digit" value="{{ formData.bill.amount }}" />
+        </mp-cell>
+        <mp-cell wx:if="{{ action === 'decr' }}" show-error title="扣除提成后收入" ext-class="">
+          <input bindinput="formInputChange" data-field="bill.actual_amount" class="weui-input" type="digit" value="{{ formData.bill.actual_amount }}" />
+        </mp-cell>
+        <mp-cell show-error title="记账日期" ext-class="">
+          <picker data-field="bill.billed_at" mode="date" value="{{ formData.bill.billed_at }}" bindchange="formInputChange">
+            <view class="weui-input">{{ formData.bill.billed_at }}</view>
+          </picker>
+        </mp-cell>
+      </block>
+    </mp-cells>
+  </mp-form>
+
+  <button class="btn-primary btn-submit" bindtap="submit">提交</button>
+</view>

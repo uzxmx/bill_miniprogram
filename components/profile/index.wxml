@@ -1,0 +1,38 @@
+<view>
+  <view class="header">
+    <image class="avatar" src="{{ avatar }}" />
+    <view>{{ nickname }}</view>
+  </view>
+
+  <view class="main">
+    <view class="separator"></view>
+    <block wx:if="{{ has_workspace }}">
+      <view class="block">
+        <image class="icon" src="../../assets/images/icon-workspace.png" />
+        <view class="name">工作空间</view>
+        <view class="value">{{ workspace }}</view>
+      </view>
+      <view class="separator"></view>
+    </block>
+    <navigator class="block" url="/pages/workspace/requests?as=workspace_owner">
+      <image class="icon" src="../../assets/images/icon-notification.png" />
+      <view class="name">我的消息</view>
+    </navigator>
+    <view class="separator"></view>
+    <navigator class="block" url="/pages/workspace/requests?as=applicant">
+      <image class="icon" src="../../assets/images/icon-applicant.png" />
+      <view class="name">我的申请</view>
+    </navigator>
+    <view class="separator"></view>
+    <navigator class="block" url="/pages/tag/list">
+      <image class="icon" src="../../assets/images/icon-tag.png" />
+      <view class="name">分类标签</view>
+    </navigator>
+    <view class="separator"></view>
+    <navigator class="block" url="">
+      <image class="icon" src="../../assets/images/icon-bill-tag.png" />
+      <view class="name">账目标签</view>
+    </navigator>
+    <view class="separator"></view>
+  </view>
+</view>

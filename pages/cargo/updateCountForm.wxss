@@ -1,0 +1,7 @@
+.weui-label {
+  width: 130px;
+}
+
+.btn-submit {
+  margin-top: 20px;
+}

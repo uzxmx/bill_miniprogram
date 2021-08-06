@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/index",
+    "pages/workspace/guide",
+    "pages/cargo/form",
+    "pages/cargo/details",
+    "pages/cargo/categoryForm",
+    "pages/cargo/updateCountForm",
+    "pages/bill/form",
+    "pages/tag/list",
+    "pages/tag/form",
+    "pages/workspace/requests"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "记账管理宝",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

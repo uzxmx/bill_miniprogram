@@ -1,0 +1,15 @@
+@import '/miniprogram_npm/weui-miniprogram/weui-wxss/dist/style/weui.wxss';
+
+.btn-primary {
+  color: white;
+  background: #07c160;
+}
+
+.btn-danger {
+  color: white;
+  background: red;
+}
+
+mp-cells, mp-cell {
+  display: block;
+}

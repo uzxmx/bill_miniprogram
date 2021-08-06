@@ -1,0 +1,17 @@
+.item {
+  padding: 15px;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.item .name {
+  font-size: 16px;
+}
+
+.item .value {
+  font-size: 13px;
+  color: #aaa;
+}
+
+.btn-add-tag {
+  margin-top: 30px;
+}

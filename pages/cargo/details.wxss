@@ -1,0 +1,82 @@
+.page {
+  padding: 10px;
+}
+
+.categories-header {
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.categories-header view {
+  flex: 1;
+}
+
+.category {
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.category-header {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.category-header image {
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.category .name {
+  flex: 1;
+}
+
+.category .price {
+  flex: 1;
+  color: orange;
+}
+
+.category .price text {
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+.category .count {
+  flex: 1;
+  text-align: right;
+}
+
+.category .count text {
+  margin-right: 5px;
+  color: #07c160;
+  font-size: 20px;
+}
+
+.category-buttons {
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.category-buttons view {
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.category-buttons .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 3px;
+}
+
+.subcategory {
+  padding: 20px 0 0 20px;
+  border-top: 1px solid #f1f1f1;
+}

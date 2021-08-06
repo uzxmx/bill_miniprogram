@@ -1,0 +1,43 @@
+<view>
+  <mp-toptips msg="{{ error }}" type="error" show="{{ error }}"></mp-toptips>
+
+  <mp-form models="{{ formData }}">
+    <mp-cells title="选择分类">
+      <mp-checkbox-group prop="radio" multi="{{ false }}" bindchange="onTagSelectionChange">
+        <mp-checkbox wx:for="{{ tag_selections }}" wx:key="value" label="{{ item.name }}" value="{{ item.value }}" checked="{{ item.value === tag_selection }}"></mp-checkbox>
+      </mp-checkbox-group>
+    </mp-cells>
+
+    <block wx:for="{{ tags }}" wx:key="id" wx:if="{{ item.name === tag_selection }}">
+      <mp-cells title="{{ item.name }}" style="margin-top: 30px;">
+        <mp-checkbox-group prop="radio" multi="{{ false }}" bindchange="onTagChange">
+          <mp-checkbox wx:for="{{ item.value }}" wx:key="value" label="{{ item.name }}" value="{{ item.value }}" checked="{{ item.value === tag }}"></mp-checkbox>
+        </mp-checkbox-group>
+      </mp-cells>
+    </block>
+
+    <mp-cell show-error title="分类名称" ext-class="" wx:if="{{ tag_selection === '_input' }}" style="margin-top: 30px; border-top: 1px solid #f1f1f1; border-bottom: 1px solid #f1f1f1;">
+      <input bindinput="formInputChange" data-field="name" class="weui-input" placeholder="请输入名称" value="{{ formData.name }}" />
+    </mp-cell>
+
+    <mp-cells title="其他信息" style="margin-top: 50px;">
+      <mp-cell>
+        <mp-uploader bindfail="onUploadError" upload="uplaodFile" bindselect="onSelectFile" files="{{ files }}" max-count="1" title="图片"></mp-uploader>
+      </mp-cell>
+
+      <mp-cell show-error title="价格" ext-class="">
+        <input bindinput="formInputChange" data-field="price" class="weui-input" type="digit" placeholder="请输入价格" value="{{ formData.price }}" />
+      </mp-cell>
+
+      <mp-cell show-error title="数量" ext-class="">
+        <input bindinput="formInputChange" data-field="count" class="weui-input" type="number" placeholder="可为空" value="{{ formData.count }}" />
+      </mp-cell>
+
+      <mp-cell show-error title="备注" ext-class="">
+        <input bindinput="formInputChange" data-field="note" class="weui-input" placeholder="可为空" value="{{ formData.note }}" />
+      </mp-cell>
+    </mp-cells>
+  </mp-form>
+
+  <button class="btn-primary btn-submit" style="margin-bottom: 30px;" bindtap="submit">提交</button>
+</view>

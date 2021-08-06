@@ -1,0 +1,31 @@
+<view>
+  <block wx:if="{{ as === 'applicant' }}">
+    <view wx:for="{{ requests }}" wx:key="id" class="item">
+      <view>
+        <text class="apply-at">{{ item.created_at }}</text>申请加入<text class="workspace-name">{{ item.workspace.name }}</text>
+      </view>
+      <view class="status-row">
+        状态：<text class="status">{{ item.statusDesc }}</text>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view wx:for="{{ requests }}" wx:key="id" class="item">
+      <view class="user-row">
+        <image class="avatar" src="{{ item.user.avatar }}" />
+        <text>{{ item.user.nickname }}</text>
+      </view>
+      <view>
+        <text class="apply-at">{{ item.created_at }}</text>申请加入<text class="workspace-name">{{ item.workspace.name }}</text>
+      </view>
+      <view class="status-row">
+        状态：<text class="status">{{ item.statusDesc }}</text>
+      </view>
+      <view class="operations" wx:if="{{ !item.status || item.status === 'initial' }}">
+        <button class="btn-primary" bindtap="updateStatus" data-id="{{ item.id }}" data-status="allowed">通过</button>
+        <button class="btn-danger" bindtap="updateStatus" data-id="{{ item.id }}" data-status="rejected">拒绝</button>
+      </view>
+    </view>
+  </block>
+</view>
