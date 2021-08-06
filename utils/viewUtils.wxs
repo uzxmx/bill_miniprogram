@@ -1,0 +1,25 @@
+// vi: ft=javascript
+var getImageUrl = function(key) {
+  return 'https://img.kangyu.co/' + key
+}
+
+var calcCategoryCount = function(category) {
+  var count = 0
+  var children = category.children
+  if (children && children.length > 0) {
+    for (var i = 0; i < children.length; i++) {
+      if (children[0].count) {
+        count += children[0].count
+      }
+    }
+  }
+  if (count === 0 && category.count) {
+    count = category.count
+  }
+  return count
+}
+
+module.exports = {
+  getImageUrl: getImageUrl,
+  calcCategoryCount: calcCategoryCount
+}

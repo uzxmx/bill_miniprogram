@@ -1,10 +1,13 @@
-import { post } from '../../request/index'
+import { get, post, patch, del } from '../../request/index'
+import deepClone from '../../utils/deepClone'
 
 Page({
   data: {
+    ready: false,
+    bill: null,
     actualAmountUpdated: false,
     billTypes: [
-      { name: '收入', value: 'income', checked: true },
+      { name: '收入', value: 'income' },
       { name: '支出', value: 'spend' }
     ],
     formData: {
@@ -14,26 +17,46 @@ Page({
       billed_at: '',
       count: 1
     },
+    selectedTag: '',
+    tags: []
   },
 
-  onLoad() {
-    const date = new Date()
-    const year = date.getFullYear()
-    const month = date.getMonth() + 1
-    const day = date.getDate()
-    this.setData({ ['formData.billed_at']: `${year}-${month}-${day}` })
+  onLoad(options) {
+    if (options.id) {
+      wx.showLoading({ title: '加载中' })
+      get(`/bills/${options.id}`).then(res => {
+        wx.hideLoading()
+        const bill = res.data
+        const selectedTag = bill.tag
+        const formData = bill
+        this.setData({ bill, ready: true, selectedTag, formData })
+      }).catch(() => {
+        wx.hideLoading()
+      })
+    } else {
+      const date = new Date()
+      const year = date.getFullYear()
+      const month = date.getMonth() + 1
+      const day = date.getDate()
+      this.setData({ ['formData.billed_at']: `${year}-${month}-${day}`, ready: true })
+    }
+
+    get('/tags?tag_type=bill').then(res => {
+      if (res.data.length > 0) {
+        const tags = JSON.parse(res.data[0].value)
+        this.setData({ tags })
+      }
+    })
   },
 
   onBillTypeChanged(e: any) {
-    const billTypes = this.data.billTypes
-    billTypes.forEach((billType: any) => {
-      billType.checked = billType.value === e.detail.value
-    })
-
     this.setData({
-      billTypes,
       ['formData.bill_type']: e.detail.value
     });
+  },
+
+  onTagChanged(e: any) {
+    this.setData({ selectedTag: e.detail.value })
   },
 
   formInputChange(e: any) {
@@ -67,14 +90,23 @@ Page({
       return
     }
 
-    console.log(formData.amount)
     if (!formData.amount) {
       this.showError('请输入总金额')
       return
     }
 
+    let data = deepClone(formData)
+    data.tag = this.data.selectedTag
+
     wx.showLoading({ title: '提交中' })
-    post('/bills', formData).then(res => {
+    let promise
+    if (this.data.bill) {
+      // @ts-ignore
+      promise = patch(`/bills/${this.data.bill.id}`, data)
+    } else {
+      promise = post('/bills', data)
+    }
+    promise.then(() => {
       wx.hideLoading()
       wx.navigateBack()
     }).catch(() => {
@@ -83,6 +115,28 @@ Page({
         title: '请求失败，请重新尝试',
         icon: 'none'
       })
+    })
+  },
+
+  deleteBill() {
+    wx.showModal({
+      content: '是否确认删除?',
+      success: res => {
+        if (res.confirm) {
+          wx.showLoading({ title: '删除中' })
+          // @ts-ignore
+          del(`/bills/${this.data.bill.id}`).then(() => {
+            wx.hideLoading()
+            wx.navigateBack()
+          }).catch(() => {
+            wx.hideLoading()
+            wx.showToast({
+              title: '请求失败，请重新尝试',
+              icon: 'none'
+            })
+          })
+        }
+      }
     })
   }
 })

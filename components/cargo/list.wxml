@@ -1,3 +1,4 @@
+<wxs src='../../utils/viewUtils.wxs' module='viewUtils'></wxs>
 <view>
   <view class="header">
     <mp-searchbar class="searchbar" />
@@ -10,9 +11,10 @@
           <text>{{ item.name }}</text>
         </view>
         <view wx:for="{{ item.categories }}" wx:key="id" wx:for-item="category" class="category">
+          <image class="photo" src="{{ category.photo ? viewUtils.getImageUrl(category.photo) : '../../assets/images/icon-package.png' }}" />
           <view class="name">{{ category.name || '默认分类' }}</view>
           <view class="price">¥<text>{{ category.price }}</text></view>
-          <view class="count"><text>{{ category.count }}</text>件</view>
+          <view class="count"><text>{{ viewUtils.calcCategoryCount(category) }}</text>件</view>
         </view>
       </navigator>
     </view>

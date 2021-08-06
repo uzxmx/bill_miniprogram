@@ -1,19 +1,25 @@
-<view>
+<view wx:if="{{ ready }}">
   <mp-toptips msg="{{ error }}" type="error" show="{{ error }}"></mp-toptips>
 
   <mp-form models="{{ formData }}">
     <mp-cells title="类型">
       <mp-checkbox-group prop="radio" multi="{{ false }}" bindchange="onBillTypeChanged">
-        <mp-checkbox wx:for="{{ billTypes }}" wx:key="value" label="{{ item.name }}" value="{{ item.value }}" checked="{{ item.checked }}"></mp-checkbox>
+        <mp-checkbox wx:for="{{ billTypes }}" wx:key="value" label="{{ item.name }}" value="{{ item.value }}" checked="{{ item.value === formData.bill_type }}"></mp-checkbox>
       </mp-checkbox-group>
     </mp-cells>
 
-    <mp-cells>
+    <mp-cells title="标签" style="margin-top: 30px;" wx:if="{{ tags.length > 0 }}">
+      <mp-checkbox-group prop="radio" multi="{{ false }}" bindchange="onTagChanged">
+        <mp-checkbox wx:for="{{ tags }}" wx:for-index="idx" wx:key="idx" label="{{ item }}" value="{{ item }}" checked="{{ selectedTag === item }}"></mp-checkbox>
+      </mp-checkbox-group>
+    </mp-cells>
+
+    <mp-cells style="margin-top: 30px;">
       <mp-cell show-error title="名称" ext-class="">
-        <input bindinput="formInputChange" data-field="name" class="weui-input" />
+        <input bindinput="formInputChange" data-field="name" class="weui-input" value="{{ formData.name }}" />
       </mp-cell>
       <mp-cell show-error title="总金额" ext-class="">
-        <input bindinput="formInputChange" data-field="amount" class="weui-input" type="digit" />
+        <input bindinput="formInputChange" data-field="amount" class="weui-input" type="digit" value="{{ formData.amount }}" />
       </mp-cell>
       <mp-cell wx:if="{{ formData.bill_type === 'income' }}" show-error title="扣除提成后总金额" ext-class="">
         <input bindinput="formInputChange" data-field="actual_amount" class="weui-input" type="digit" value="{{ formData.actual_amount }}" />
@@ -29,5 +35,6 @@
     </mp-cells>
   </mp-form>
 
-  <button class="btn-primary btn-submit" bindtap="submit">提交</button>
+  <button class="btn-primary btn-submit" bindtap="submit">保存</button>
+  <button class="btn-danger btn-delete" bindtap="deleteBill" wx:if="{{ bill }}">删除</button>
 </view>

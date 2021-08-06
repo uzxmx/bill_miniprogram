@@ -1,3 +1,4 @@
+<wxs src='../../utils/viewUtils.wxs' module='viewUtils'></wxs>
 <view class="page">
   <view>名称: {{ cargo.name }}</view>
   <view style="margin-top: 5px;" wx:if="{{ cargo.note }}">备注：{{ cargo.note }}</view>
@@ -15,7 +16,7 @@
           <image src="{{ category.photo_url }}" />
           <view class="name">{{ category.name || '默认分类' }}</view>
           <view class="price">¥<text>{{ category.price }}</text></view>
-          <view class="count"><text>{{ category.count || 0 }}</text>件</view>
+          <view class="count"><text>{{ viewUtils.calcCategoryCount(category) }}</text>件</view>
         </view>
         <view wx:if="{{ category.note }}">
           备注：{{ category.note }}

@@ -29,7 +29,7 @@
       <view class="name">分类标签</view>
     </navigator>
     <view class="separator"></view>
-    <navigator class="block" url="">
+    <navigator class="block" url="/pages/tag/form?tagType=bill">
       <image class="icon" src="../../assets/images/icon-bill-tag.png" />
       <view class="name">账目标签</view>
     </navigator>

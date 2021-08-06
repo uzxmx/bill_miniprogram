@@ -1,8 +1,8 @@
-<view>
+<view wx:if="{{ ready }}">
   <mp-toptips msg="{{ error }}" type="error" show="{{ error }}"></mp-toptips>
 
   <mp-form models="{{ formData }}">
-    <mp-cells>
+    <mp-cells wx:if="{{ tagType !== 'bill' }}">
       <mp-cell show-error title="标签名称" ext-class="">
         <input bindinput="formInputChange" data-field="name" class="weui-input" placeholder="请输入名称" value="{{ formData.name }}" />
       </mp-cell>
@@ -21,5 +21,5 @@
   </mp-form>
 
   <button class="btn-primary btn-submit" bindtap="submit">保存</button>
-  <button class="btn-danger btn-delete" bindtap="deleteTag" wx:if="{{ tag }}">删除</button>
+  <button class="btn-danger btn-delete" bindtap="deleteTag" wx:if="{{ tagType != 'bill' && tag }}">删除</button>
 </view>

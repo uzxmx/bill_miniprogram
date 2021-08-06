@@ -3,6 +3,8 @@ import deepClone from '../../utils/deepClone'
 
 Page({
   data: {
+    ready: false,
+    tagType: '',
     tag: null,
     formData: {
       name: '',
@@ -17,10 +19,27 @@ Page({
         wx.hideLoading()
         const tagValues = JSON.parse(res.data.value).map((e: any, i: any) => { return { id: i, value: e } })
         const formData = { name: res.data.name }
-        this.setData({ tag: res.data, tagValues, formData })
+        this.setData({ tag: res.data, tagValues, formData, ready: true })
       }).catch(() => {
         wx.hideLoading()
       })
+    } else if (options.tagType === 'bill') {
+      wx.showLoading({ title: '加载中' })
+      get(`/tags?tag_type=${options.tagType}`).then(res => {
+        wx.hideLoading()
+        let tag, tagValues
+        if (res.data.length > 0) {
+          tag = res.data[0]
+          tagValues = JSON.parse(tag.value).map((e: any, i: any) => { return { id: i, value: e } })
+        } else {
+          tagValues = this.data.tagValues
+        }
+        this.setData({ tag, tagValues, tagType: options.tagType, ready: true })
+      }).catch(() => {
+        wx.hideLoading()
+      })
+    } else {
+      this.setData({ ready: true })
     }
   },
 
@@ -73,7 +92,7 @@ Page({
   submit() {
     const formData = this.data.formData
 
-    if (!formData.name) {
+    if (this.data.tagType !== 'bill' && !formData.name) {
       this.showError('请输入标签名称')
       return
     }
@@ -91,7 +110,7 @@ Page({
     }
 
     let data = deepClone(formData)
-    data.tag_type = 'cargo_category'
+    data.tag_type = this.data.tagType || 'cargo_category'
     data.value = JSON.stringify(tagValues.map(e => e.value))
 
     wx.showLoading({ title: '提交中' })

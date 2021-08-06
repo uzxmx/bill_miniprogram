@@ -5,3 +5,7 @@
 .btn-submit {
   margin-top: 20px;
 }
+
+.btn-delete {
+  margin-top: 10px;
+}
