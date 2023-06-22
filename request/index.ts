@@ -1,6 +1,7 @@
 import UserManager from '../user/manager'
 
-const baseURL = "https://bill.kuaigonglian.com/api"
+// const baseURL = "https://bill.kuaigonglian.com/api"
+const baseURL = "http://localhost:3000/api"
 
 function addAuthenticationHeaders(options: any) {
   if (!options.header) {
